@@ -1,13 +1,15 @@
-package herokuapp_smoketest;
+package HerOkuAppSmokeTest;
 
 import base_urls.HerOkuAppBaseUrl;
-import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.Test;
 import pojos.BookingDatesPojo;
 import pojos.BookingPojo;
+import util.ObjectMapperUtils;
 
-import static herokuapp_smoketest.S1Post.bookingId;
+import static HerOkuAppSmokeTest.S1Post.bookingId;
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 import static util.AuthenticationHerOkuApp.generateToken;
 
 public class S2Put extends HerOkuAppBaseUrl {
@@ -46,7 +48,6 @@ public class S2Put extends HerOkuAppBaseUrl {
 
     @Test
     public void put01() {
-        System.out.println(bookingId);
         //Set the url
         spec.pathParams("first", "booking", "second", bookingId);
 
@@ -56,12 +57,24 @@ public class S2Put extends HerOkuAppBaseUrl {
         System.out.println("expectedData = " + expectedData);
 
         //Send the request and get the response
-        given().
-                spec(spec).
-                header("Cookie", "token=" + generateToken()).
-                body(expectedData).put("/{first}/{second}");
+        Response response = given().spec(spec).body(expectedData).put("/{first}/{second}");
+
+        response.prettyPrint();
+
+        //Do Assertion
+        BookingPojo actualData = ObjectMapperUtils.convertJsonToJava(response.asString(), BookingPojo.class);
+        System.out.println("actualData = " + actualData);
+        assertEquals(200, response.statusCode());
+
+        assertEquals(expectedData.getFirstname(), actualData.getFirstname());
+        assertEquals(expectedData.getLastname(), actualData.getLastname());
+        assertEquals(expectedData.getTotalprice(), actualData.getTotalprice());
+        assertEquals(expectedData.getDepositpaid(), actualData.getDepositpaid());
+
+        assertEquals(bookingDatesPojo.getCheckin(), actualData.getBookingdates().getCheckin());
+        assertEquals(bookingDatesPojo.getCheckout(), actualData.getBookingdates().getCheckout());
+
+        assertEquals(expectedData.getAdditionalneeds(), actualData.getAdditionalneeds());
 
     }
-
-
 }
