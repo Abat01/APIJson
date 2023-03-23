@@ -1,12 +1,12 @@
-package HerOkuAppSmokeTest;
+package herokuapp_smoketest;
 
 import base_urls.HerOkuAppBaseUrl;
 import io.restassured.response.Response;
 import org.junit.Test;
 
+import static herokuapp_smoketest.S1Post.bookingId;
 import static io.restassured.RestAssured.given;
 import static org.testng.AssertJUnit.assertEquals;
-import static util.AuthenticationHerOkuApp.generateToken;
 
 public class S3Delete extends HerOkuAppBaseUrl {
     /*
@@ -22,7 +22,7 @@ public class S3Delete extends HerOkuAppBaseUrl {
     @Test
     public void delete01() {
         //Set the url
-        spec.pathParams("first", "booking", "second", 8515);
+        spec.pathParams("first", "booking", "second", bookingId);
 
         //Set the expected data
         String expectedData = "Created";

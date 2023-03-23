@@ -1,4 +1,4 @@
-package HerOkuAppSmokeTest;
+package herokuapp_smoketest;
 
 import base_urls.HerOkuAppBaseUrl;
 import io.restassured.response.Response;
@@ -47,7 +47,7 @@ public class S1Post extends HerOkuAppBaseUrl {
             }
         }
      */
-    static int bookingId;
+    static int bookingId;//Oluşturulan bookingId'yi sonraki classlarda kullanılmak üzere bir containera alıyoruz
 
     @Test
     public void post01() {
@@ -78,7 +78,7 @@ public class S1Post extends HerOkuAppBaseUrl {
 
         assertEquals(expectedData.getAdditionalneeds(), actualData.getBooking().getAdditionalneeds());
 
-        bookingId = actualData.getBookingid();
+        bookingId = actualData.getBookingid();//Oluşturulan bookingId'yi sonraki classlarda kullanılmak üzere bir containera alıyoruz
 
     }
 }

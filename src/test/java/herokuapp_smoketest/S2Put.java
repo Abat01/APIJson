@@ -1,4 +1,4 @@
-package HerOkuAppSmokeTest;
+package herokuapp_smoketest;
 
 import base_urls.HerOkuAppBaseUrl;
 import io.restassured.response.Response;
@@ -7,10 +7,9 @@ import pojos.BookingDatesPojo;
 import pojos.BookingPojo;
 import util.ObjectMapperUtils;
 
-import static HerOkuAppSmokeTest.S1Post.bookingId;
+import static herokuapp_smoketest.S1Post.bookingId;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
-import static util.AuthenticationHerOkuApp.generateToken;
 
 public class S2Put extends HerOkuAppBaseUrl {
     /*
